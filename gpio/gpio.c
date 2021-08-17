@@ -16,7 +16,7 @@ int get_gpio() {
     
     while (gpio_state == 1){
         int tens_good = 0;
-        printf("\nEnter GPIO number to test (%d - %d) or e to exit: ", min_GPIO, max_GPIO);
+        printf("\nEnter the GPIO (not Pin) number to test (%d - %d) or e to exit: ", min_GPIO, max_GPIO);
 
         char tens = getchar();
         if (tens == 'e' ){
