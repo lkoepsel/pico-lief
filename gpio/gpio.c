@@ -129,8 +129,13 @@ int main() {
     gpio_init(LED_PIN);
     gpio_set_dir(LED_PIN, GPIO_OUT);
 
+    // long blink built-in LED to indicate program started
+    gpio_put(LED_PIN, 1);
+    sleep_ms(2000);
+    gpio_put(LED_PIN, 0);
+
     // Print Program title and burn char in buffer
-    printf("\nInteractive GPIO Test");
+    printf("\nInteractive GPIO Test using SWD");
     getchar();
 
     // Main loop, continue until 'e' has been entered
