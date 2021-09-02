@@ -1,14 +1,13 @@
 /**
- * Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
- *
- * SPDX-License-Identifier: BSD-3-Clause
+ * Interactive Program to test GPIO 
+ * by Lief Koepsel
  */
 
 #include <stdio.h>
 #include "pico/stdlib.h"
 
 const int min_GPIO = 0;
-const int max_GPIO = 29;
+const int max_GPIO = 28;
 
 int get_gpio() {
     int gpio = 0;
@@ -19,6 +18,7 @@ int get_gpio() {
         printf("\nEnter the GPIO (not Pin) number to test (%d - %d) or e to exit: ", min_GPIO, max_GPIO);
 
         char tens = getchar();
+        printf(tens);
         if (tens == 'e' ){
             gpio_state = 0;
             return -1;
@@ -82,13 +82,46 @@ void test2 (int *gpio) {
 }
 
 void test3 (int *gpio) {
-    printf(" Blink %d", *gpio);
+    volatile int sleep_time = 500;
+    printf(" Blink (1s) %d", *gpio);
     gpio_init(*gpio);
     gpio_set_dir(*gpio, GPIO_OUT);
     gpio_put(*gpio, 1);
-    sleep_ms(500);
+    sleep_ms(sleep_time);
     gpio_put(*gpio, 0);
-    sleep_ms(500);
+    sleep_ms(sleep_time);
+}
+
+void test4 (int *gpio) {
+    volatile int sleep_time = 2000;
+    printf(" Long Blink (4s) %d", *gpio);
+    gpio_init(*gpio);
+    gpio_set_dir(*gpio, GPIO_OUT);
+    gpio_put(*gpio, 1);
+    sleep_ms(sleep_time);
+    gpio_put(*gpio, 0);
+    sleep_ms(sleep_time);
+}
+
+void test5 (int *gpio) {
+    printf(" State of GPIO %d %d", *gpio, gpio_get(*gpio));
+}
+
+void test6 (int *gpio) {
+    printf(" Using GPIO %d", *gpio);
+}
+
+void test7 (int *gpio) {
+    volatile int sleep_time = 500;
+    printf(" Blink %d 4 times", *gpio);
+    for (int i=1;i<5;++i) {
+        gpio_init(*gpio);
+        gpio_set_dir(*gpio, GPIO_OUT);
+        gpio_put(*gpio, 1);
+        sleep_ms(sleep_time);
+        gpio_put(*gpio, 0);
+        sleep_ms(sleep_time);
+    }
 }
 
 void get_test(int *gpio) {
@@ -96,7 +129,7 @@ void get_test(int *gpio) {
     int test;
 
     while (test_state == 1) {
-        printf("\nEnter Test (0-New GPIO, 1-High, 2-Low, 3-Blink): ");
+        printf("\nEnter Test (0-New GPIO 1-High 2-Low 3-Blink 4-Long Blink 5-Get State 6-ID GPIO 7-Blink 4: ");
         test = getchar();
         switch(test) {
             case ('0'):
@@ -112,8 +145,20 @@ void get_test(int *gpio) {
             case ('3'):
                 test3(gpio);
             break;
+            case ('4'):
+                test4(gpio);
+            break;
+            case ('5'):
+                test5(gpio);
+            break;
+            case ('6'):
+                test6(gpio);
+            break;
+            case ('7'):
+                test7(gpio);
+            break;
             default :
-                printf(" Test must be 0-3");
+                printf(" Test must be 0-7");
             break;
         }
     }
