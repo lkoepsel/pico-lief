@@ -24,6 +24,3 @@ add_compile_options(-Wall
         -Wno-unused-function # we have some for the docs that aren't called
         -Wno-maybe-uninitialized
         )
-
-# Hardware-specific examples in subdirectories:
-add_subdirectory(cmake)

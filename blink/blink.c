@@ -40,9 +40,9 @@ int main() {
         off_BI_LED();
         for (int i=0; i<4; i++) {
             gpio_put(PINS[i], 1);
-            sleep_ms(200);
+            sleep_ms(1000);
             gpio_put(PINS[i], 0);
-            sleep_ms(100);
+            sleep_ms(1000);
         }
         on_BI_LED();
         sleep_ms(500);
