@@ -28,6 +28,7 @@ int main() {
     // lite up built-in LED on entry to show program started
     init_BI_LED();
     on_BI_LED();
+    const uint sleep_time = 200;
     sleep_ms(500);
 
 // Cycle through 4 LED's, use an array to allow for non-sequential ports
@@ -40,9 +41,9 @@ int main() {
         off_BI_LED();
         for (int i=0; i<4; i++) {
             gpio_put(PINS[i], 1);
-            sleep_ms(1000);
+            sleep_ms(sleep_time);
             gpio_put(PINS[i], 0);
-            sleep_ms(1000);
+            sleep_ms(sleep_time);
         }
         on_BI_LED();
         sleep_ms(500);
