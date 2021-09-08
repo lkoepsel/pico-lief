@@ -19,3 +19,14 @@ App|Description | Link to prebuilt UF2
 [gpio](gpio) | Interactive GPIO test program | 
 [gpio](gpio) | Select GPIO pin and set high, low or blink | 
 
+Notes:
+
+1. Changed the ENV variable in .github/cmake.yaml to be Debug as compared to release. When running cmake, add DPICO_DEOPTIMIZED_DEBUG=1 which will further reduce the optimization and add more debugging info (to be confirmed). Essentially this becomes:
+```
+cmake -DCMAKE_BUILD_TYPE=Debug -DPICO_DEOPTIMIZED_DEBUG=1 .
+```
+This blog entry also confirms this:
+* [Disabling all Compiler Optimizations in the Pi Pico SDK](https://hackaday.io/project/177082-raspberry-pi-pico-emulator/log/191090-disabling-all-compiler-optimizations-in-the-pi-pico-sdk)
+
+This said, performing the above optimization (or lack of, actually) will cause signficant issues with performance:
+* [Pico debugging with GDB -- value has been optimized out](https://www.raspberrypi.org/forums/viewtopic.php?t=316648)
