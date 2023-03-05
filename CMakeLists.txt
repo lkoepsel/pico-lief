@@ -38,7 +38,13 @@ add_subdirectory(blink_timer)
 add_subdirectory(blink_bit)
 
 # Add hello world example
+add_subdirectory(gpio)
+
+# Add hello world example
 add_subdirectory(hello_world)
+
+# Add hello world example
+add_subdirectory(tasks)
 
 add_compile_options(-Wall
         -Wno-format          # int != int32_t as far as the compiler is concerned because gcc has int32_t as long int
